@@ -5,6 +5,7 @@ using UnityEngine;
 public class TPSController : MonoBehaviour
 {
     private CharacterController _controller;
+    private Animator _animator;
     private Transform _camera;
     private float _horizontal;
     private float _vertical;
@@ -24,10 +25,11 @@ public class TPSController : MonoBehaviour
     [SerializeField] private LayerMask _groundLayer;
     private bool _isGrounded;
 
- void Start()
+ void Awake()
     {
         _controller = GetComponent<CharacterController>();
         _camera = Camera.main.transform;
+        _animator = GetComponentInChildren<Animator>();
     
     }
 
@@ -80,6 +82,9 @@ public class TPSController : MonoBehaviour
      void AimMovement()
     {
         Vector3 direction = new Vector3(_horizontal, 0, _vertical);
+        _animator.SetFloat("VelX", _horizontal);
+        _animator.SetFloat("VelZ", _vertical);
+
         float targetAngle = Mathf.Atan2(direction.x, direction.z) * Mathf.Rad2Deg + _camera.eulerAngles.y;
         float smoothAngle = Mathf.SmoothDampAngle(transform.eulerAngles.y, _camera.eulerAngles.y, ref turnSmoothVelocity, turnSmoothTime);
         transform.rotation = Quaternion.Euler(0, smoothAngle, 0);
