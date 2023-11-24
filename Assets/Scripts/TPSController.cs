@@ -4,29 +4,36 @@ using UnityEngine;
 
 public class TPSController : MonoBehaviour
 {
+    //Examen
     private CharacterController _controller;
-    private Animator _animator;
     private Transform _camera;
     private float _horizontal;
     private float _vertical;
-   
-   
+    private Animator _animator;
+
+    //Examen
     [SerializeField] private float _playerSpeed = 5;
     [SerializeField] private float _jumpHeight = 1;
+
     [SerializeField] private float _pushForce = 5;
     [SerializeField] private float _throwForce = 10;
 
+    //Examen
     private float _gravity = -9.81f;
     private Vector3 _playerGravity;
+
     private bool _isAiming = false;
 
+    //Examen
     private float turnSmoothVelocity;
     [SerializeField] float turnSmoothTime = 0.1f;
 
+    //Examen
     [SerializeField] private Transform _sensorPosition;
     [SerializeField] private float _sensorRadius = 0.2f;
     [SerializeField] private LayerMask _groundLayer;
     private bool _isGrounded;
+
     public int shootDamage = 2;
     
     public GameObject objectToGrab;
@@ -35,17 +42,23 @@ public class TPSController : MonoBehaviour
 
  void Awake()
     {
+        //Examen
         _controller = GetComponent<CharacterController>();
         _camera = Camera.main.transform;
         _animator = GetComponentInChildren<Animator>();
+
         Cursor.visible = false;
         Cursor.lockState = CursorLockMode.Locked;
     }
 
     void Update()
     {
+        //Examen
         _horizontal = Input.GetAxisRaw("Horizontal");
         _vertical = Input.GetAxisRaw("Vertical");
+        // Movement();
+        // Jump();
+
         if(Input.GetButton("Fire2"))
         {
             AimMovement();
@@ -73,7 +86,7 @@ public class TPSController : MonoBehaviour
         }
 
     }
-
+    //Examen
     void Movement()
     {
         Vector3 direction = new Vector3(_horizontal, 0, _vertical);
@@ -90,11 +103,17 @@ public class TPSController : MonoBehaviour
         }
     }
 
+    //Examen
     void Jump()
     {
+        //Examen
         _isGrounded = Physics.CheckSphere(_sensorPosition.position, _sensorRadius, _groundLayer);
+        //_animator.SetBool("IsJumping", !_isGrounded);
+
         /*_isGrounded = Physics.Raycast(_sensorPosition.position, Vector3.down, _sensorRadius, _groundLayer);
         Debug.DrawRay(_sensorPosition.position, Vector3.down * _sensorRadius, Color.red);*/ //Groundsensor raycast
+
+        //Examen
         if(_isGrounded && _playerGravity.y < 0)
         {
             _animator.SetBool("IsJumping", false);
