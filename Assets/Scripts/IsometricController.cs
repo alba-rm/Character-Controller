@@ -38,20 +38,45 @@ public class IsometricController : MonoBehaviour
         _vertical = Input.GetAxisRaw("Vertical");
         Movement();
         Jump();
+        if(Input.GetButtonDown("Jump"))
+        {
+            CameraRay();
+        }
     }
-
-    void Movement()
+    //Examen2
+    void CameraRay()
     {
-        Vector3 direction = new Vector3(_horizontal, 0, _vertical);
         Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
         RaycastHit hit;
         if(Physics.Raycast(ray, out hit, Mathf.Infinity))
         {
-            Debug.DrawLine(Camera.main.transform.position, hit.point);
-            Vector3 directionRaycast = hit.point - transform.position;
-            directionRaycast.y = 0;
-            transform.forward = directionRaycast;
+            if(hit.transform.gameObject.tag == "Objeto 1")
+            {
+                Debug.Log("ssdfs");
+            }
+
+            else if(hit.transform.gameObject.tag == "Objeto 2")
+            {
+                Destroy(hit.transform.gameObject);
+            }
         }
+    }
+    void Movement()
+    {
+        Vector3 direction = new Vector3(_horizontal, 0, _vertical);
+        //Examen2
+        Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+        RaycastHit hit;
+        if(Physics.Raycast(ray, out hit, Mathf.Infinity))
+        {
+            //Debug.DrawLine(Camera.main.transform.position, hit.point);
+            
+            /*Vector3 directionRaycast = hit.point - transform.position;
+            directionRaycast.y = 0;
+            transform.forward = directionRaycast;*/ //no sale
+    
+        }
+        
 
         if(direction != Vector3.zero)
         {

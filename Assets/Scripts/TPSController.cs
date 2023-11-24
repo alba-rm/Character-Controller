@@ -33,7 +33,7 @@ public class TPSController : MonoBehaviour
     [SerializeField] private float _sensorRadius = 0.2f;
     [SerializeField] private LayerMask _groundLayer;
     private bool _isGrounded;
-
+    //Examen2
     public int shootDamage = 2;
     
     public GameObject objectToGrab;
@@ -76,6 +76,7 @@ public class TPSController : MonoBehaviour
         {
             RayTest();
         }
+
         if(Input.GetKeyDown(KeyCode.E))
         {
             GrabObject();
@@ -110,8 +111,9 @@ public class TPSController : MonoBehaviour
         _isGrounded = Physics.CheckSphere(_sensorPosition.position, _sensorRadius, _groundLayer);
         //_animator.SetBool("IsJumping", !_isGrounded);
 
+        //Examen2 Ground sensor Raycast
         /*_isGrounded = Physics.Raycast(_sensorPosition.position, Vector3.down, _sensorRadius, _groundLayer);
-        Debug.DrawRay(_sensorPosition.position, Vector3.down * _sensorRadius, Color.red);*/ //Groundsensor raycast
+        Debug.DrawRay(_sensorPosition.position, Vector3.down * _sensorRadius, Color.red);*/ 
 
         //Examen
         if(_isGrounded && _playerGravity.y < 0)
@@ -127,9 +129,10 @@ public class TPSController : MonoBehaviour
         _playerGravity.y += _gravity * Time.deltaTime;
         _controller.Move(_playerGravity * Time.deltaTime);
     }
-
+    //Examen2
     void RayTest()
     {
+        //Ray cast simple
         /*if(Physics.Raycast(transform.position, transform.forward, 10))
         {
             Debug.Log("Hit");
@@ -138,7 +141,8 @@ public class TPSController : MonoBehaviour
         else
         {
             Debug.DrawRay(transform.position, transform.forward * 10, Color.red);
-        }*/ //Raycast simple
+        }*/ 
+
         RaycastHit hit;
         if (Physics.Raycast(transform.position, transform.forward, out hit, 10))
         {
@@ -146,6 +150,10 @@ public class TPSController : MonoBehaviour
             Debug.Log(hit.transform.position);
             //Destroy(hit.transform.gameObject);
             Box caja = hit.transform.GetComponent<Box>();
+            /* if(hit.transform.gameObject.tag == "Caja")
+            {
+                Destroy(hit.transform.gameObject);
+            }*/
             if(caja != null)
             {
                 caja.TakeDamage(shootDamage);

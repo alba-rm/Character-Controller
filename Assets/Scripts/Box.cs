@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class Box : MonoBehaviour
 {
+    //Examen2
     int vida = 10;
     public void TakeDamage(int damage)
     {
