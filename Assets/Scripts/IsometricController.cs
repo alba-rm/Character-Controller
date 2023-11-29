@@ -23,6 +23,8 @@ public class IsometricController : MonoBehaviour
     [SerializeField] private float _sensorRadius = 0.2f;
     [SerializeField] private LayerMask _groundLayer;
     private bool _isGrounded;
+    //variable para la camera //Examen
+    public Camera cameraPrincipal
 
     // Start is called before the first frame update
     void Start()
